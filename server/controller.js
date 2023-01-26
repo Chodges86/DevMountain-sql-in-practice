@@ -49,5 +49,14 @@ module.exports = {
         ON u.user_id = c.user_id`)
         .then((dbRes => res.status(200).send(dbRes[0])))
         .catch((err) => console.log(err));
+    },
+
+    getPendingAppointments: (req, res) => {
+        sequelize.query(`SELECT * FROM cc_appointments
+        WHERE approved = false
+        ORDER BY date DESC`)
+        .then((dbRes) => res.status(200).send(dbRes[0]))
+        .catch(err => console.log(err))
     }
+ 
 }
